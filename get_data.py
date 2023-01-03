@@ -36,7 +36,7 @@ def get_flights_airport_month(airport, month, access_key):
       response = requests.get(f'https://app.goflightlabs.com/advanced-flights-history?access_key={access_key}&code={airport}&type=departure&date_from=2022-{month}-26&date_to=2022-{month}-{ldom}&airline_iata={iata}')
       if response.json()['success'] == True: responses.append(response)
     print(response)
-    print(response.json())
+    print(response.json()['success'])
   
   data_list = []
   for response in responses:
@@ -73,9 +73,10 @@ def get_flights_airport(airport_lst, access_key):
   return df
 
 
-if __name__ == __main__:
+if __name__ == '__main__':
 
     airport_lst = ['MAN', 'LPL', 'LGW', 'BHX', 'LHR', 'GLA', 'NCL', 'EDI', 'ABZ', 'BRS',
      'CWL', 'LBA', 'EMA', 'STN', 'LTN', 'BHD', 'NWI', 'EXT', 'BFS', 'SOU', 'DSA', 'BOH',
      'BZZ', 'LCY', 'NQY', 'HUY', 'BLK', 'MME', 'SEN', 'KOI']
-    df = get_flights_airport(airport_lst, access_key)
+    print(args.access_key)
+    df = get_flights_airport(airport_lst, args.access_key)
