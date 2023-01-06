@@ -20,10 +20,15 @@ for i, df in enumerate(dfs):
         df['departure.terminal'] = None
     if 'departure.gate' not in df.columns:
         df['departure.gate'] = None
+    if 'departure.actualTime' not in df.columns:
+        df['departure.actualTime'] = None
+    if 'arrival.actualTime' not in df.columns:
+        df['arrival.actualTime'] = None
     # Add in column for airport by extracting from filename
 
     df_sub = df[['airline.name', 'departure.terminal', 'departure.gate',
-    'departure.scheduledTime', 'status', 'departure.iataCode', 'arrival.delay', 'arrival.iataCode']]
+    'departure.scheduledTime', 'departure.actualTime', 'arrival.scheduledTime',
+    'arrival.actualTime', 'status', 'departure.iataCode', 'arrival.delay', 'arrival.iataCode']]
     df_subs.append(df_sub)
 
 combined_csv = pd.concat(df_subs)
