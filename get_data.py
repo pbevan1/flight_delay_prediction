@@ -3,11 +3,16 @@ import pandas as pd
 import datetime
 from arguments import parse_args
 
+# Define arguments to allow command line use
 args = parse_args()
 
 def get_flights_airport_month(airport, month, access_key):
+  """Function that fetches and collates airport data for a specific airport
+  for a specific month only. Requires a working flightlabs API access key."""
   print(f'Month={month}')
-  fdom = '01'
+  fdom = '01' # Define standard first day of month
+
+  # Setting last day of month to different values depending on the month
   if month in ['01', '03', '05', '07', '08', '10', '12']:
     ldom = '31'
     if month == '01':
@@ -20,6 +25,7 @@ def get_flights_airport_month(airport, month, access_key):
     ldom = '30'
   
   responses = []
+  # Getting data for select few airlines (Ryanair, Easyjet, KLM, Virgin)
   for iata in ['FR', 'LH', 'KL', 'LS', 'BY', 'VS']:
     print(f'airline={iata}')
     response = requests.get(f'https://app.goflightlabs.com/advanced-flights-history?access_key={access_key}&code={airport}&type=departure&date_from=2022-{month}-{fdom}&date_to=2022-{month}-05&airline_iata={iata}')
